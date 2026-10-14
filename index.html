@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Biblioteca Digital</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome para Iconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts: Playfair Display (Serif para títulos legales) y Lato (Sans para lectura) -->
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: 'Lato', sans-serif;
+            background-color: #f4f6f8;
+        }
+        
+        h1, h2, .legal-font {
+            font-family: 'Playfair Display', serif;
+        }
+
+        /* Estilo base para el icono en relieve */
+        .icon-relief {
+            box-shadow: 
+                5px 5px 10px #bebebe, 
+                -5px -5px 10px #ffffff;
+            border: 2px solid #f3f4f6;
+            transition: all 0.3s ease;
+        }
+
+        .card-container {
+            background: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            /* El border-top se asignará dinámicamente en JS */
+        }
+
+        .card-container:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+
+        .bg-pattern {
+            background-image: radial-gradient(#cbd5e1 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+    </style>
+</head>
+<body class="bg-pattern min-h-screen flex flex-col">
+
+    <!-- Encabezado -->
+    <header class="bg-white shadow-md py-8 sticky top-0 z-50">
+        <div class="container mx-auto px-4 text-center">
+            <div class="flex justify-center items-center mb-2">
+                <i class="fas fa-scale-balanced text-4xl text-blue-900 mr-4"></i>
+                <h1 class="text-3xl md:text-4xl font-bold text-gray-800 tracking-wide uppercase border-b-2 border-blue-900 pb-2">
+                    BIBLIOTECA
+                </h1>
+                <i class="fas fa-gavel text-4xl text-blue-900 ml-4"></i>
+            </div>
+            <p class="text-gray-500 mt-2 text-sm uppercase tracking-widest">REPOSITORIO DE LECTURA</p>
+        </div>
+    </header>
+
+    <!-- Contenedor Principal (Grid) -->
+    <main class="container mx-auto px-4 py-12 flex-grow">
+        <div id="docs-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+            <!-- Las fichas se generarán aquí mediante JavaScript -->
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-slate-800 text-white py-8 mt-8 border-t-4 border-slate-600">
+        <div class="container mx-auto text-center">
+            <p class="text-lg font-light">2026 DERECHOS DE AUTOR - M.Sc. Alberto Mercado Carrasco</p>
+            <p class="text-xs text-slate-400 mt-2 uppercase tracking-wider">Todos los derechos reservados</p>
+        </div>
+    </footer>
+
+    <script>
+        // =========================================================================
+        // DATOS DE DOCUMENTOS (Iconos actualizados y únicos)
+        // =========================================================================
+        
+        const documentos = [
+            {
+                numero: "1",
+                nombre: "PROTOCOLO DE ACTUACION PARA JUSTICIA RESTAURATIVA – TRANSPARENCIA",
+                url: "https://drive.google.com/file/d/1ioKmDxPcu96rbtViVHJsvQzO6WIrK-uO/view?usp=sharing",
+                icono: "fa-file-shield"
+            },
+            {
+                numero: "2",
+                nombre: "GUIA PROCEDIMIENTOS JUSTICIA RESTAURATIVA CORRUPCIÓN",
+                url: "https://drive.google.com/file/d/1r61l7TStELTaIOjO2AMLTUZF_hDGorjG/view?usp=sharing",
+                icono: "fa-list-check"
+            },
+            {
+                numero: "3",
+                nombre: "GUIA DE MECANISMOS DE JUSTICIA RESTAURATIVA BOLIVIA",
+                url: "https://drive.google.com/file/d/1I62XKwPBNGvEZKkQ9G2SLaF2m-AbRDjm/view?usp=sharing",
+                icono: "fa-gears"
+            },
+            {
+                numero: "4",
+                nombre: "EL PEQUEÑO LIBRO DE LA JUSTICIA RESTAURATIVA",
+                url: "https://drive.google.com/file/d/1iJXeCvlCvFLAi_QgkIU2IlmIYh9USiaa/view?usp=sharing",
+                icono: "fa-book"
+            },
+            {
+                numero: "5",
+                nombre: "JUSTICIA RESTAURATIVA DEL CASTIGO A LA REPARACIÓN",
+                url: "https://drive.google.com/file/d/1_lz7YxJTlYMZeXQXz1u_r0UZ8uXGmLYK/view?usp=sharing",
+                icono: "fa-hand-holding-heart"
+            },
+            {
+                numero: "6",
+                nombre: "JUSTICIA RESTAURATIVA Y SISTEMA DE SANCIONES",
+                url: "https://drive.google.com/file/d/1YqemKHafA8uOHp4db4QSZLFzz10PIlKX/view?usp=sharing",
+                icono: "fa-scale-balanced"
+            },
+            {
+                numero: "7",
+                nombre: "MEDIACIÓN PENAL Y JUSTICIA RESTAURATIVA",
+                url: "https://drive.google.com/file/d/10-6sIIeGJqkxAwjqbMBWYfb1twcDoGZH/view?usp=sharing",
+                icono: "fa-handshake"
+            }
+        ];
+
+        // =========================================================================
+        // CONFIGURACIÓN DE COLORES
+        // =========================================================================
+        
+        // Paleta de colores ejecutivos para alternar
+        const themes = [
+            { // Azul Institucional
+                border: 'border-blue-800',
+                gradient: 'from-blue-900 to-blue-700',
+                btn: 'bg-blue-800 hover:bg-blue-900',
+                text: 'text-blue-900',
+                badge: 'bg-blue-50 text-blue-800'
+            },
+            { // Rojo Borgoña (Legal/Serio)
+                border: 'border-red-900',
+                gradient: 'from-red-900 to-red-700',
+                btn: 'bg-red-900 hover:bg-red-950',
+                text: 'text-red-900',
+                badge: 'bg-red-50 text-red-900'
+            },
+            { // Verde Esmeralda (Financiero/Tributario)
+                border: 'border-emerald-800',
+                gradient: 'from-emerald-900 to-emerald-700',
+                btn: 'bg-emerald-800 hover:bg-emerald-900',
+                text: 'text-emerald-900',
+                badge: 'bg-emerald-50 text-emerald-800'
+            },
+            { // Gris Pizarra (Neutro/Admin)
+                border: 'border-slate-700',
+                gradient: 'from-slate-800 to-slate-600',
+                btn: 'bg-slate-700 hover:bg-slate-800',
+                text: 'text-slate-800',
+                badge: 'bg-slate-100 text-slate-700'
+            }
+        ];
+
+        // =========================================================================
+        // LÓGICA DE RENDERIZADO
+        // =========================================================================
+
+        const gridContainer = document.getElementById('docs-grid');
+
+        function renderDocs() {
+            gridContainer.innerHTML = ''; 
+
+            documentos.forEach((doc, index) => {
+                // Seleccionar tema basado en el índice (Ciclo 0, 1, 2, 3...)
+                const theme = themes[index % themes.length];
+
+                const card = document.createElement('div');
+                // Añadimos border-top-4 dinámico
+                card.className = `card-container flex flex-col p-6 relative group border-t-4 ${theme.border}`;
+                
+                card.innerHTML = `
+                    <div class="absolute -top-7 left-1/2 transform -translate-x-1/2">
+                        <div class="icon-relief w-16 h-16 rounded-full flex items-center justify-center text-white text-2xl bg-gradient-to-br ${theme.gradient}">
+                            <i class="fas ${doc.icono}"></i>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-8 text-center flex-grow flex flex-col justify-between">
+                        <div>
+                            <span class="inline-block px-3 py-1 ${theme.badge} text-xs font-bold rounded-full mb-3 tracking-wider">
+                                DOC N° ${doc.numero}
+                            </span>
+                            <h3 class="text-lg font-bold text-gray-800 mb-2 legal-font leading-tight h-14 flex items-center justify-center">
+                                ${doc.nombre}
+                            </h3>
+                            <!-- Separador decorativo con el color del tema -->
+                            <div class="w-12 h-1 ${theme.text.replace('text', 'bg')} opacity-20 mx-auto my-3 rounded"></div>
+                        </div>
+                        
+                        <div class="mt-4">
+                            <a href="${doc.url}" target="_blank" class="${theme.btn} text-white w-full block py-3 rounded-md font-medium shadow-md flex items-center justify-center gap-2 transform transition-all hover:scale-[1.02] active:scale-95 duration-200">
+                                <i class="fab fa-google-drive text-lg"></i> Abrir en Drive
+                            </a>
+                        </div>
+                    </div>
+                `;
+                
+                gridContainer.appendChild(card);
+            });
+        }
+
+        // Renderizado inicial
+        document.addEventListener('DOMContentLoaded', () => {
+            renderDocs();
+        });
+
+    </script>
+</body>
+</html>
